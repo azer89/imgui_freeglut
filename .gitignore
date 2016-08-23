@@ -1,0 +1,17 @@
+*.tlog
+*.obj
+*.suo
+*.pdb
+*.metagen
+*.exe
+*.ilk
+*.idb
+*.log
+*.lastbuildstate
+*.ipch
+*.sdf
+*.opendb
+*.pch
+*.opensdf
+*.sdf
+*.aip
