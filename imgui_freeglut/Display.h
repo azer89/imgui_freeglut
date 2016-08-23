@@ -22,11 +22,23 @@ public:
 	Display();
 	~Display();
 
-	void Init();
 	void Draw();
-	void Update(int nScreenWidth = 0, int nScreenHeight = 0);
-	bool KeyboardEvent(unsigned char nChar, int nX, int nY);
-	bool MouseEvent(int button, int state, int x, int y);
+	void Update(       int nScreenWidth = 0,  int nScreenHeight = 0);
+	bool KeyboardEvent(unsigned char nChar,   int x, int y);
+	bool MouseEvent(   int button, int state, int x,  int y);
+
+public:
+	static std::shared_ptr<Display> GetInstance();
+
+	static void InitGL(int argc, char **argv);
+	static void ResizeCallback(int w, int h);	
+	static void ShowCallback();
+	
+
+	static void KeyboardCallback( unsigned char nChar, int x, int y);
+	static void MouseCallback(    int button, int state, int x, int y);
+	static void MouseDragCallback(int x, int y);
+	static void MouseMoveCallback(int x, int y);
 
 public:
 	float _screenWidth;
@@ -34,6 +46,7 @@ public:
 
 	std::string _window_title;
 
+	static std::shared_ptr<Display> _static_instance;
 };
 
 #endif

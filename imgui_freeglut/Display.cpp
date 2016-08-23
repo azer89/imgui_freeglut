@@ -8,6 +8,9 @@
 #include "imgui_impl_glut.h"
 
 
+std::shared_ptr<Display> Display::_static_instance = nullptr;
+
+
 Display::Display() :
 	_screenWidth(0.0f),
 	_screenHeight(0.0f),
@@ -19,11 +22,16 @@ Display::~Display()
 {
 }
 
-void Display::Init()
+// static
+std::shared_ptr<Display> Display::GetInstance()
 {
-	glEnable(GL_MULTISAMPLE);
-	glClearColor(0.7, 1.0, 0.7, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT);
+	if (_static_instance == nullptr)
+	{ 
+		_static_instance = std::shared_ptr<Display>(new Display()); 
+		_static_instance->_screenWidth = 500;
+		_static_instance->_screenHeight = 500;
+	}
+	return _static_instance;
 }
 
 void Display::Draw()
@@ -51,6 +59,7 @@ void Display::Draw()
 	ImGui::Render();
 	*/
 }
+
 
 void Display::Update(int nScreenWidth, int nScreenHeight)
 {
@@ -105,4 +114,86 @@ bool Display::MouseEvent(int button, int state, int x, int y)
 	}
 
 	return true;
+}
+
+// static
+void Display::InitGL(int argc, char **argv)
+{
+	glutInit(&argc, argv);
+	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE | GLUT_MULTISAMPLE);
+
+	glutInitWindowSize(500, 500);
+	glutInitWindowPosition(100, 100);
+	glutCreateWindow( Display::GetInstance()->_window_title.c_str());
+
+	// callback
+	glutReshapeFunc(      ResizeCallback);
+	glutDisplayFunc(      ShowCallback);
+	glutKeyboardFunc(     KeyboardCallback);
+	glutMouseFunc(        MouseCallback);
+	glutMotionFunc(       MouseDragCallback);
+	glutPassiveMotionFunc(MouseMoveCallback);
+	
+	glEnable(GL_MULTISAMPLE);
+	glClearColor(0.7, 1.0, 0.7, 1.0);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	glutMainLoop();
+}
+
+// static
+void Display::ResizeCallback(int w, int h)
+{
+	glViewport(0, 0, w, h);
+	Display::GetInstance()->Update(w, h);
+}
+
+// static
+void Display::ShowCallback()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	ImGui_ImplGLUT_Init(); // shoud it always be here ?
+
+	//CORE_ASSERT(glGetError() == GL_NO_ERROR);
+	Display::GetInstance()->Draw();
+	//CORE_ASSERT(glGetError() == GL_NO_ERROR);
+	glutSwapBuffers();
+}
+
+// static
+void Display::KeyboardCallback(unsigned char nChar, int x, int y)
+{
+	if (Display::GetInstance()->KeyboardEvent(nChar, x, y))
+	{
+		glutPostRedisplay();
+	}
+}
+
+// static
+void Display::MouseCallback(int button, int state, int x, int y)
+{
+	if (Display::GetInstance()->MouseEvent(button, state, x, y))
+	{
+		glutPostRedisplay();
+	}
+}
+
+// static
+void Display::MouseDragCallback(int x, int y)
+{
+	ImGuiIO& io = ImGui::GetIO();
+	io.MousePos = ImVec2((float)x, (float)y);
+
+	glutPostRedisplay();
+}
+
+// static
+void Display::MouseMoveCallback(int x, int y)
+{
+	ImGuiIO& io = ImGui::GetIO();
+	io.MousePos = ImVec2((float)x, (float)y);
+
+	glutPostRedisplay();
 }
