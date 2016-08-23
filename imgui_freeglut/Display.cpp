@@ -36,16 +36,42 @@ std::shared_ptr<Display> Display::GetInstance()
 
 void Display::Draw()
 {
+	//std::cout << "draw\n";
 	//glFlush();
 
-	ImGui_ImplGLUT_NewFrame(this->_screenWidth, this->_screenHeight, 1.0f / 30.0f);
+	//float slice = 7;
+	//float radius = 100;
+	//float pi_2 = 3.141592 * 2.0f;
 
+	glColor3f(1.0, 0.0, 0.0);
+	//glPointSize(5.0);
+	glLineWidth(5.0);
+
+	glBegin(GL_LINES);
+	glVertex2d(0.0, 0.0);
+	glVertex2d(1.0, 1.0);
+	glEnd();
+
+	/*glBegin(GL_POINTS);
+	//std::vector<AVector> polyline;
+	for (float a = 0; a < pi_2; a += (pi_2 / slice))
+	{
+		float x = 250 + sin(a) * radius;
+		float y = 250 + cos(a) * radius;
+		glVertex2d(x, y);
+		//polyline.push_back(AVector(x, y));
+	}
+	glEnd();*/
+
+	ImGui_ImplGLUT_NewFrame(this->_screenWidth, this->_screenHeight, 1.0f / 30.0f);
+	
 	//ImGui::NewFrame();
 	bool show_another_window = true;
 	ImGui::Begin("Another Window", &show_another_window, ImVec2(200, 100));
 	ImGui::Text("Hello");
 	ImGui::End();
 	ImGui::Render();
+	
 
 	/*
 	bool show_another_window = true;
@@ -58,14 +84,20 @@ void Display::Draw()
 	
 	ImGui::Render();
 	*/
+
+	
 }
 
 
 void Display::Update(int nScreenWidth, int nScreenHeight)
 {
+	//std::cout << "update\n";
+
 	_screenWidth = (nScreenWidth != 0) ? (float)nScreenWidth : _screenWidth;
 	_screenHeight = (nScreenHeight != 0) ? (float)nScreenHeight : _screenHeight;
 	//CORE::Rectf domainRect = _vfdProxy->GetDomainRectangle();
+
+	//std::cout << _screenWidth << " " << _screenHeight << "\n";
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -100,7 +132,7 @@ bool Display::KeyboardEvent(unsigned char nChar, int nX, int nY)
 
 bool Display::MouseEvent(int button, int state, int x, int y)
 {
-	ImGuiIO& io = ImGui::GetIO();
+	/*ImGuiIO& io = ImGui::GetIO();
 	io.MousePos = ImVec2((float)x, (float)y);
 
 	if (state == GLUT_DOWN && button == GLUT_LEFT_BUTTON)
@@ -111,7 +143,7 @@ bool Display::MouseEvent(int button, int state, int x, int y)
 	else
 	{
 		io.MouseDown[0] = false;
-	}
+	}*/
 
 	return true;
 }
@@ -124,12 +156,12 @@ void Display::InitGL(int argc, char **argv)
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE | GLUT_MULTISAMPLE);
 
 	glutInitWindowSize(500, 500);
-	glutInitWindowPosition(100, 100);
+	glutInitWindowPosition(200, 200);
 	glutCreateWindow( Display::GetInstance()->_window_title.c_str());
 
 	// callback
-	glutReshapeFunc(      ResizeCallback);
 	glutDisplayFunc(      ShowCallback);
+	glutReshapeFunc(      ResizeCallback);	
 	glutKeyboardFunc(     KeyboardCallback);
 	glutMouseFunc(        MouseCallback);
 	glutMotionFunc(       MouseDragCallback);
@@ -183,8 +215,8 @@ void Display::MouseCallback(int button, int state, int x, int y)
 // static
 void Display::MouseDragCallback(int x, int y)
 {
-	ImGuiIO& io = ImGui::GetIO();
-	io.MousePos = ImVec2((float)x, (float)y);
+	/*ImGuiIO& io = ImGui::GetIO();
+	io.MousePos = ImVec2((float)x, (float)y);*/
 
 	glutPostRedisplay();
 }
@@ -192,8 +224,8 @@ void Display::MouseDragCallback(int x, int y)
 // static
 void Display::MouseMoveCallback(int x, int y)
 {
-	ImGuiIO& io = ImGui::GetIO();
-	io.MousePos = ImVec2((float)x, (float)y);
+	/*ImGuiIO& io = ImGui::GetIO();
+	io.MousePos = ImVec2((float)x, (float)y);*/
 
 	glutPostRedisplay();
 }
