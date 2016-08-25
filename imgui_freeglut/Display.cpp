@@ -76,23 +76,14 @@ void Display::Draw()
 
 	glEnd();
 
-	/*glBegin(GL_POINTS);
-	//std::vector<AVector> polyline;
-	for (float a = 0; a < pi_2; a += (pi_2 / slice))
-	{
-		float x = 250 + sin(a) * radius;
-		float y = 250 + cos(a) * radius;
-		glVertex2d(x, y);
-		//polyline.push_back(AVector(x, y));
-	}
-	glEnd();*/
-
 	ImGui_ImplGLUT_NewFrame(this->_screenWidth, this->_screenHeight, 1.0f / 30.0f);
 	
 	//ImGui::NewFrame();
 	bool show_another_window = true;
 	ImGui::Begin("Another Window", &show_another_window, ImVec2(200, 100));
-	ImGui::Text("Hello");
+	ImGui::Text("Hello World 1");
+	ImGui::Text("Hello World 2");
+	ImGui::Text("Hello World 3");
 	ImGui::End();
 	ImGui::Render();
 	
@@ -160,7 +151,7 @@ bool Display::KeyboardEvent(unsigned char nChar, int nX, int nY)
 
 bool Display::MouseEvent(int button, int state, int x, int y)
 {
-	/*ImGuiIO& io = ImGui::GetIO();
+	ImGuiIO& io = ImGui::GetIO();
 	io.MousePos = ImVec2((float)x, (float)y);
 
 	if (state == GLUT_DOWN && button == GLUT_LEFT_BUTTON)
@@ -171,7 +162,7 @@ bool Display::MouseEvent(int button, int state, int x, int y)
 	else
 	{
 		io.MouseDown[0] = false;
-	}*/
+	}
 
 	return true;
 }
@@ -243,8 +234,8 @@ void Display::MouseCallback(int button, int state, int x, int y)
 // static
 void Display::MouseDragCallback(int x, int y)
 {
-	/*ImGuiIO& io = ImGui::GetIO();
-	io.MousePos = ImVec2((float)x, (float)y);*/
+	ImGuiIO& io = ImGui::GetIO();
+	io.MousePos = ImVec2((float)x, (float)y);
 
 	glutPostRedisplay();
 }
@@ -252,8 +243,8 @@ void Display::MouseDragCallback(int x, int y)
 // static
 void Display::MouseMoveCallback(int x, int y)
 {
-	/*ImGuiIO& io = ImGui::GetIO();
-	io.MousePos = ImVec2((float)x, (float)y);*/
+	ImGuiIO& io = ImGui::GetIO();
+	io.MousePos = ImVec2((float)x, (float)y);
 
 	glutPostRedisplay();
 }
