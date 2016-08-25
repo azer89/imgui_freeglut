@@ -1,4 +1,4 @@
-﻿Build started 8/23/2016 3:58:29 PM.
+﻿Build started 8/25/2016 10:44:40 AM.
      1>Project "C:\Users\azer\workspace\imgui_freeglut\imgui_freeglut\imgui_freeglut.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\azer\workspace\imgui_freeglut\include /IC:\Users\azer\workspace\imgui_freeglut\imgui /ZI /nologo /W1 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Display.cpp
@@ -13,4 +13,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.91
+Time Elapsed 00:00:00.80

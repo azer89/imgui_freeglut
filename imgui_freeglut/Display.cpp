@@ -43,13 +43,37 @@ void Display::Draw()
 	//float radius = 100;
 	//float pi_2 = 3.141592 * 2.0f;
 
-	glColor3f(1.0, 0.0, 0.0);
+	
 	//glPointSize(5.0);
-	glLineWidth(5.0);
+	glLineWidth(10.0);
 
 	glBegin(GL_LINES);
+
+	// diagonal
+	glColor3f(1.0, 0.0, 0.0);
 	glVertex2d(0.0, 0.0);
-	glVertex2d(1.0, 1.0);
+	glVertex2d(500.0, 500.0);
+
+	// top
+	glColor3f(0.0, 1.0, 0.0); // green
+	glVertex2d(0.0, 0.0);
+	glVertex2d(500.0, 0.0);
+
+	// left
+	glColor3f(0.0, 1.0, 0.0); // green
+	glVertex2d(0.0, 0.0);
+	glVertex2d(0.0, 500.0);
+
+	// bottom
+	glColor3f(0.0, 0.0, 1.0); // blue
+	glVertex2d(0.0, 500.0);
+	glVertex2d(500.0, 500.0);
+
+	// right
+	glColor3f(0.0, 0.0, 1.0); // blue
+	glVertex2d(500.0, 0.0);
+	glVertex2d(500.0, 500.0);
+
 	glEnd();
 
 	/*glBegin(GL_POINTS);
@@ -91,34 +115,38 @@ void Display::Draw()
 
 void Display::Update(int nScreenWidth, int nScreenHeight)
 {
-	//std::cout << "update\n";
+	_screenWidth = nScreenWidth;
+	_screenHeight = nScreenHeight;
 
-	_screenWidth = (nScreenWidth != 0) ? (float)nScreenWidth : _screenWidth;
-	_screenHeight = (nScreenHeight != 0) ? (float)nScreenHeight : _screenHeight;
-	//CORE::Rectf domainRect = _vfdProxy->GetDomainRectangle();
+	float xOffset = 0;
+	float yOffset = 0;
+	float scaleVal = 1.0;
 
-	//std::cout << _screenWidth << " " << _screenHeight << "\n";
+	if (_screenWidth > _screenHeight) // wide
+	{
+		xOffset = (_screenWidth - _screenHeight)* 0.5f;
+		scaleVal = _screenHeight / 500.0f;
+	}
+	else // tall
+	{
+		yOffset = (_screenHeight - _screenWidth) * 0.5f;
+		scaleVal = _screenWidth / 500.0f;
+	}
 
+	glViewport(0, 0, _screenWidth, _screenHeight);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	if (_screenWidth > _screenHeight)
-	{
-		float fWidth(_screenWidth / _screenHeight);
-		float fOffset((fWidth - 1.0f)*0.5f);
-		gluOrtho2D(0 - fOffset, fWidth - fOffset, 1.0f, 0.0f);
 
-		//_vfdProxy->SetDomainRectangle(0 - fOffset, 0, fWidth - fOffset, 1.0f);
-	}
-	else
-	{
-		float fHeight(_screenHeight / _screenWidth);
-		float fOffset((fHeight - 1.0f)*0.5f);
-		gluOrtho2D(0, 1.0f, fHeight - fOffset, 0 - fOffset);
 
-		//_vfdProxy->SetDomainRectangle(0, 0 - fOffset, 1.0f, fHeight - fOffset);
-	}
+	gluOrtho2D(0 - xOffset,
+		_screenWidth - xOffset,
+		_screenHeight - yOffset,
+		0 - yOffset);	// flip the y axis
+
+
 	glMatrixMode(GL_MODELVIEW);
-
+	glLoadIdentity();
+	glScalef(scaleVal, scaleVal, scaleVal);
 }
 
 bool Display::KeyboardEvent(unsigned char nChar, int nX, int nY)
@@ -156,7 +184,7 @@ void Display::InitGL(int argc, char **argv)
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE | GLUT_MULTISAMPLE);
 
 	glutInitWindowSize(500, 500);
-	glutInitWindowPosition(200, 200);
+	//glutInitWindowPosition(200, 200);
 	glutCreateWindow( Display::GetInstance()->_window_title.c_str());
 
 	// callback
