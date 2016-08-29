@@ -42,10 +42,9 @@ void Display::Draw()
 	//float slice = 7;
 	//float radius = 100;
 	//float pi_2 = 3.141592 * 2.0f;
-
 	
 	//glPointSize(5.0);
-	glLineWidth(10.0);
+	glLineWidth(1.0);
 
 	glBegin(GL_LINES);
 
@@ -77,10 +76,8 @@ void Display::Draw()
 	glEnd();
 
 	ImGui_ImplGLUT_NewFrame(this->_screenWidth, this->_screenHeight, 1.0f / 30.0f);
-	
-	//ImGui::NewFrame();
 	bool show_another_window = true;
-	ImGui::Begin("Another Window", &show_another_window, ImVec2(200, 100));
+	ImGui::Begin("Decorative Ornaments", &show_another_window, ImVec2(200, 100));
 	ImGui::Text("Hello World 1");
 	ImGui::Text("Hello World 2");
 	ImGui::Text("Hello World 3");
@@ -99,8 +96,6 @@ void Display::Draw()
 	
 	ImGui::Render();
 	*/
-
-	
 }
 
 
@@ -129,10 +124,10 @@ void Display::Update(int nScreenWidth, int nScreenHeight)
 	glLoadIdentity();
 
 
-	gluOrtho2D(0 - xOffset,
-		_screenWidth - xOffset,
-		_screenHeight - yOffset,
-		0 - yOffset);	// flip the y axis
+	gluOrtho2D(0 - xOffset,     // left
+		_screenWidth - xOffset, // right
+		_screenHeight - yOffset, //bottom
+		0 - yOffset);	// flip the y axis // top
 
 
 	glMatrixMode(GL_MODELVIEW);
@@ -168,14 +163,14 @@ bool Display::MouseEvent(int button, int state, int x, int y)
 }
 
 // static
-void Display::InitGL(int argc, char **argv)
+void Display::ShowGL(int argc, char **argv)
 {
 	glutInit(&argc, argv);
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE | GLUT_MULTISAMPLE);
 
 	glutInitWindowSize(500, 500);
-	//glutInitWindowPosition(200, 200);
+	glutInitWindowPosition(50, 50);
 	glutCreateWindow( Display::GetInstance()->_window_title.c_str());
 
 	// callback
@@ -207,9 +202,8 @@ void Display::ShowCallback()
 
 	ImGui_ImplGLUT_Init(); // shoud it always be here ?
 
-	//CORE_ASSERT(glGetError() == GL_NO_ERROR);
 	Display::GetInstance()->Draw();
-	//CORE_ASSERT(glGetError() == GL_NO_ERROR);
+
 	glutSwapBuffers();
 }
 

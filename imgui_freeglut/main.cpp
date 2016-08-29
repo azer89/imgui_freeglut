@@ -8,7 +8,7 @@
 //int _tmain(int argc, _TCHAR* argv[])
 int main(int argc, char **argv)
 {
-	Display::InitGL(argc, argv);
+	Display::ShowGL(argc, argv);
 
 	return 0;
 }

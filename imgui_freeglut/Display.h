@@ -30,7 +30,7 @@ public:
 public:
 	static std::shared_ptr<Display> GetInstance();
 
-	static void InitGL(int argc, char **argv);
+	static void ShowGL(int argc, char **argv);
 	static void ResizeCallback(int w, int h);	
 	static void ShowCallback();
 	
