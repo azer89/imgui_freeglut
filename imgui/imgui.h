@@ -459,7 +459,7 @@ namespace ImGui
     // All contexts share a same ImFontAtlas by default. If you want different font atlas, you can new() them and overwrite the GetIO().Fonts variable of an ImGui context.
     IMGUI_API const char*   GetVersion();
     IMGUI_API ImGuiContext* CreateContext(void* (*malloc_fn)(size_t) = NULL, void (*free_fn)(void*) = NULL);
-    IMGUI_API void          DestroyContext(ImGuiContext* ctx);
+    IMGUI_API void          DestroyContext(ImGuiContext* ctx = NULL);
     IMGUI_API ImGuiContext* GetCurrentContext();
     IMGUI_API void          SetCurrentContext(ImGuiContext* ctx);
 

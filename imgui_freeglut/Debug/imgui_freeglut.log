@@ -1,16 +1,1 @@
-﻿Build started 8/29/2016 11:49:56 AM.
-     1>Project "C:\Users\azer\workspace\imgui_freeglut\imgui_freeglut\imgui_freeglut.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\azer\workspace\imgui_freeglut\include /IC:\Users\azer\workspace\imgui_freeglut\imgui /ZI /nologo /W1 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
-         main.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\azer\workspace\imgui_freeglut\Debug\imgui_freeglut.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\azer\workspace\imgui_freeglut\lib\win32 /LIBPATH:C:\Users\azer\workspace\imgui_freeglut\Debug freeglut.lib imgui.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\azer\workspace\imgui_freeglut\Debug\imgui_freeglut.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\azer\workspace\imgui_freeglut\Debug\imgui_freeglut.lib" /MACHINE:X86 Debug\Display.obj
-         Debug\imgui_impl_glut.obj
-         Debug\main.obj
-         Debug\stdafx.obj
-         imgui_freeglut.vcxproj -> C:\Users\azer\workspace\imgui_freeglut\Debug\imgui_freeglut.exe
-     1>Done Building Project "C:\Users\azer\workspace\imgui_freeglut\imgui_freeglut\imgui_freeglut.vcxproj" (Build target(s)).
-
-Build succeeded.
-
-Time Elapsed 00:00:00.66
+﻿  imgui_freeglut.vcxproj -> C:\Users\azer\workspace\imgui_freeglut_2017\Debug\imgui_freeglut.exe
